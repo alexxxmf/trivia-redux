@@ -1,0 +1,43 @@
+{
+  "name": "trivia_redux",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "yarn tslint -c ./tslint.json 'src/**/*.{ts,tsx}'",
+    "clear-cache": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build && rm -rf node_modules/ && yarn cache clean --force && yarn",
+    "clear-bundler": "watchman watch-del-all && rm -rf node_modules && yarn install && rm -rf /tmp/metro-bundler-cache-* && rm -rf /tmp/haste-map-react-native-packager-*"
+  },
+  "dependencies": {
+    "@types/react-native": "^0.60.15",
+    "@types/react-redux": "^7.1.2",
+    "@types/styled-components": "^4.1.19",
+    "deox": "^2.1.0",
+    "react": "16.8.6",
+    "react-native": "0.60.5",
+    "react-native-gesture-handler": "^1.4.1",
+    "react-navigation": "^4.0.7",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.4.0",
+    "tslint-react-native": "^0.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/runtime": "^7.6.0",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.4.0",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-native-typescript-transformer": "^1.2.13",
+    "react-test-renderer": "16.8.6",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
