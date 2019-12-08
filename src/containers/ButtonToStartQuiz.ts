@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import ButtonToStartQuiz from '../components/ButtonToStartQuiz';
-import service from '../service';
-import { questionSetProcessor } from '../utils';
-import { saveChecklists } from '../store';
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import ButtonToStartQuiz from "../components/ButtonToStartQuiz";
+import service from "../service";
+import { questionSetProcessor } from "../utils";
+import { saveChecklists } from "../store";
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getTriviaQuestions: async () => {
@@ -11,10 +11,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     const response = await service.getTriviaQuestions();
     const processedQuestions = questionSetProcessor(response.results);
     dispatch(saveChecklists(processedQuestions));
-  }
+  },
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(ButtonToStartQuiz);
+export default connect(undefined, mapDispatchToProps)(ButtonToStartQuiz);

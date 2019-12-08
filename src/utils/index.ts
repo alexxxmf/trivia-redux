@@ -1,16 +1,15 @@
-import { Result as Question } from '../service';
+import { Result as Question } from "../service";
+import { AllHtmlEntities } from "html-entities";
 
-// To decode HTML entities
-// https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
 function htmlDecode(input: string): string | null {
-  const doc = new DOMParser().parseFromString(input, 'text/html');
-  return doc.documentElement.textContent;
+  const entities = new AllHtmlEntities();
+  return entities.decode(input);
 }
 
 function questionSetProcessor(questions: Question[]): Question[] {
   return questions.map(question => {
     const decodedQuestion = htmlDecode(question.question);
-    question.question = decodedQuestion ? decodedQuestion : '';
+    question.question = decodedQuestion ? decodedQuestion : "";
     return question;
   });
 }

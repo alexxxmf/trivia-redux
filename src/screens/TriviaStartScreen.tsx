@@ -1,9 +1,8 @@
-import React from 'react';
-import styled from 'styled-components/native';
-import { withNavigation } from 'react-navigation';
+import React from "react";
+import styled from "styled-components/native";
 
-import ButtonToStartQuiz from '../containers/ButtonToStartQuiz';
-import { SMainContainerSafeAreaView } from '../theme/styles';
+import ButtonToStartQuiz from "../containers/ButtonToStartQuiz";
+import { SMainContainerSafeAreaView } from "../theme/styles";
 //import { Colors } from '../theme';
 
 const SWrapperHeaderView = styled.View`
@@ -33,16 +32,18 @@ const TriviaStart = () => (
     </SWrapperHeaderView>
     <SWrapperMainSectionView>
       <SSecondaryText>
-        {'You will be presented with 10 True or False questionsss \n'}
+        {"You will be presented with 10 True or False questionsss \n"}
       </SSecondaryText>
       <SSecondaryText>Can you score 100%?</SSecondaryText>
     </SWrapperMainSectionView>
     <SButtonWrapper>
-      <ButtonToStartQuiz text="Let's Start!" navigateTo='a' testID='ButtonToStartQuiz' />
+      <ButtonToStartQuiz
+        text="Let's Start!"
+        navigateTo="TriviaQuestionsScreen"
+        testID="ButtonToStartQuiz"
+      />
     </SButtonWrapper>
   </SMainContainerSafeAreaView>
 );
 
-export const TriviaStartWithoutHocs = TriviaStart;
-
-export default withNavigation(TriviaStart);
+export default TriviaStart;

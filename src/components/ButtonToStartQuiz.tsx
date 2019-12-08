@@ -1,8 +1,8 @@
-import React from 'react';
-import { withNavigation, NavigationInjectedProps } from 'react-navigation';
-import styled from 'styled-components/native';
+import React from "react";
+import { withNavigation, NavigationInjectedProps } from "react-navigation";
+import styled from "styled-components/native";
 
-import { Colors, Metrics } from '../theme';
+import { Colors, Metrics } from "../theme";
 
 const STouchableHighlight = styled.TouchableHighlight`
   height: 45px;
@@ -27,11 +27,17 @@ type Props = {
 } & NavigationInjectedProps &
   IDispatchProps;
 
-const ButtonToStartQuiz = ({ text, testID, navigation, navigateTo, getTriviaQuestions }: Props) => {
+const ButtonToStartQuiz = ({
+  text,
+  testID,
+  navigation,
+  navigateTo,
+  getTriviaQuestions,
+}: Props) => {
   return (
     <STouchableHighlight
-      onPress={() => {
-        getTriviaQuestions();
+      onPress={async () => {
+        await getTriviaQuestions();
         navigation.navigate(navigateTo);
       }}
     >

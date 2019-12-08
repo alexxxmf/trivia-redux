@@ -1,12 +1,14 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import TriviaStart from '../screens/TriviaStart';
-import TriviaQuestion from '../screens/TriviaQuestion';
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import TriviaStartScreen from "../screens/TriviaStartScreen";
+import TriviaQuestionsScreen from "../screens/TriviaQuestionsScreen";
+import TriviaResultsScreen from "../screens/TriviaResultsScreen";
 
-export const persistenceKey = 'newKey10';
+export const persistenceKey = "newKey10";
 
 const navigationScreens = {
-  TriviaStart,
-  TriviaQuestion
+  TriviaStartScreen,
+  TriviaQuestionsScreen,
+  TriviaResultsScreen,
 };
 
 const AppNavigator = createSwitchNavigator(navigationScreens);

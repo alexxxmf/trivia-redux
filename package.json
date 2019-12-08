@@ -7,13 +7,17 @@
     "test": "jest",
     "lint": "yarn tslint -c ./tslint.json 'src/**/*.{ts,tsx}'",
     "clear-cache": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build && rm -rf node_modules/ && yarn cache clean --force && yarn",
-    "clear-bundler": "watchman watch-del-all && rm -rf node_modules && yarn install && rm -rf /tmp/metro-bundler-cache-* && rm -rf /tmp/haste-map-react-native-packager-*"
+    "clear-bundler": "watchman watch-del-all && rm -rf node_modules && yarn install && rm -rf /tmp/metro-bundler-cache-* && rm -rf /tmp/haste-map-react-native-packager-*",
+    "rn-debugger": "open \"rndebugger://set-debugger-loc?host=localhost&port=8081\" "
   },
   "dependencies": {
+    "@types/html-entities": "^1.2.16",
+    "@types/jest": "^24.0.23",
     "@types/react-native": "^0.60.15",
     "@types/react-redux": "^7.1.2",
     "@types/styled-components": "^4.1.19",
     "deox": "^2.1.0",
+    "html-entities": "^1.2.1",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-gesture-handler": "^1.4.1",
