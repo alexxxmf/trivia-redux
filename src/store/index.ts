@@ -16,6 +16,7 @@ export const saveAnswer = createActionCreator(
 );
 
 export const wipeOutAnswers = createActionCreator("WIPE_OUT_ANSWERS");
+export const wipeOutQuestions = createActionCreator("WIPE_OUT_QUESTIONS");
 
 export interface IStateQuestions {
   [key: string]: Question;
@@ -38,6 +39,9 @@ export interface IRootState {
 const questions = createReducer({}, handleAction => [
   handleAction(saveChecklists, (state, { payload }) => {
     return { ...state, ...normaliseArray(payload.questions, "question") };
+  }),
+  handleAction(wipeOutQuestions, () => {
+    return {};
   }),
 ]);
 
@@ -83,8 +87,8 @@ export const selectAnswersArray = (state: IRootState): boolean[] => {
     .map(key => state.answers.answersByIndex[parseInt(key)]);
 };
 
-// // @ts-ignore
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducer, compose(applyMiddleware(thunk)));
 
