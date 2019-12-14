@@ -1,12 +1,15 @@
 import React from "react";
-import { View } from "react-native";
 
 import {
   SAnswerButton,
   SButtonWrapperView,
   SCategoryText,
   SQuestionText,
-  SButtonText
+  SButtonText,
+  SCategoryWrapper,
+  SQuestionWrapper,
+  MainWrapperView,
+  SQuestionBorderView
 } from "./TriviaQuestion.style";
 
 interface IProps {
@@ -17,11 +20,15 @@ interface IProps {
 
 const TriviaQuestion = ({ question, category, onQuestionAnswered }: IProps) => {
   return (
-    <View>
-      <View>
-        <SQuestionText>{question}</SQuestionText>
+    <MainWrapperView>
+      <SCategoryWrapper>
         <SCategoryText>{category}</SCategoryText>
-      </View>
+      </SCategoryWrapper>
+      <SQuestionWrapper>
+        <SQuestionBorderView borderType="upper" />
+        <SQuestionText>{question}</SQuestionText>
+        <SQuestionBorderView borderType="lower" />
+      </SQuestionWrapper>
       <SButtonWrapperView>
         <SAnswerButton
           testID="FalseButton"
@@ -36,7 +43,7 @@ const TriviaQuestion = ({ question, category, onQuestionAnswered }: IProps) => {
           <SButtonText>True</SButtonText>
         </SAnswerButton>
       </SButtonWrapperView>
-    </View>
+    </MainWrapperView>
   );
 };
 

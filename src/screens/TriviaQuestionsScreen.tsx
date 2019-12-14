@@ -1,14 +1,13 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
-//import styled from 'styled-components/native';
 
+import { SMainContainerSafeAreaView } from "../theme/styles";
 import TriviaQuestions from "../containers/TriviaQuestions";
 
 const TriviaQuestionsScreen = () => {
   return (
-    <SafeAreaView>
+    <SMainContainerSafeAreaView>
       <TriviaQuestions />
-    </SafeAreaView>
+    </SMainContainerSafeAreaView>
   );
 };
 
