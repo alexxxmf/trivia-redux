@@ -42,7 +42,7 @@ const questions = createReducer({}, handleAction => [
   }),
   handleAction(wipeOutQuestions, () => {
     return {};
-  }),
+  })
 ]);
 
 const answers = createReducer(
@@ -53,32 +53,30 @@ const answers = createReducer(
         ...state,
         answersByIndex: {
           ...state.answersByIndex,
-          [state.nextIndex]: payload.answer,
+          [state.nextIndex]: payload.answer
         },
-        nextIndex: state.nextIndex + 1,
+        nextIndex: state.nextIndex + 1
       };
     }),
     handleAction(wipeOutAnswers, state => {
       return {
         ...state,
         answersByIndex: {},
-        nextIndex: 0,
+        nextIndex: 0
       };
-    }),
+    })
   ]
 );
 
 const reducer = combineReducers({
   questions,
-  answers,
+  answers
 });
 
 // TODO: create more selectors and test them
 export const selectQuestions = (state: IRootState): Question[] => {
   return Object.values(state.questions);
 };
-
-// TODO: How to turn this solution into something more elegant???
 
 // TODO: create more selectors and test them
 export const selectAnswersArray = (state: IRootState): boolean[] => {

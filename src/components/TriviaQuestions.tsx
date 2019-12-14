@@ -15,7 +15,6 @@ const TriviaQuestions = ({ questions, navigation, saveAnswer }: IProps) => {
   const { question, category } = questions[questionNumber];
 
   const handleQuestionAnswered = (answer: boolean) => {
-    console.log("answer");
     saveAnswer(answer);
     setQuestionNumber(questionNumber + 1);
     if (questions.length - 1 <= questionNumber) {

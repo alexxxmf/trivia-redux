@@ -1,20 +1,7 @@
 import React from "react";
 import { withNavigation, NavigationInjectedProps } from "react-navigation";
-import styled from "styled-components/native";
 
-import { Colors, Metrics } from "../theme";
-
-const STouchableHighlight = styled.TouchableHighlight`
-  height: 45px;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  background-color: ${Colors.white};
-  margin: ${Metrics.buttonRadius.large}px;
-  border-radius: ${Metrics.buttonRadius.large}px;
-`;
-
-const SText = styled.Text``;
+import { STouchableHighlight, SText } from "./ButtonToStartQuiz.style";
 
 interface IDispatchProps {
   getTriviaQuestions: () => Promise<any>;
@@ -32,7 +19,7 @@ const ButtonToStartQuiz = ({
   testID,
   navigation,
   navigateTo,
-  getTriviaQuestions,
+  getTriviaQuestions
 }: Props) => {
   return (
     <STouchableHighlight

@@ -1,19 +1,11 @@
 import React from "react";
 import { withNavigation, NavigationInjectedProps } from "react-navigation";
-import styled from "styled-components/native";
-import { View, TouchableHighlight, Text } from "react-native";
 
-import { Colors, Metrics } from "../theme";
-
-const SAnswerButton = styled(TouchableHighlight)`
-  height: 45px;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  margin: ${Metrics.margin.tripleBaseMargin}px;
-  border-radius: ${Metrics.buttonRadius.large}px;
-  background-color: ${Colors.white};
-`;
+import {
+  SAnswerButtonWrapperView,
+  SAnswerButton,
+  SAnswerButtonText
+} from "./ButtonToStartAgain.style";
 
 interface IProps extends NavigationInjectedProps {
   wipeOutAnswers: () => void;
@@ -25,11 +17,11 @@ const ButtonToStartAgain = ({ wipeOutAnswers, navigation }: IProps) => {
     navigation.navigate("TriviaStartScreen");
   };
   return (
-    <View>
+    <SAnswerButtonWrapperView>
       <SAnswerButton testID="StartAgainButton" onPress={handlePress}>
-        <Text>True</Text>
+        <SAnswerButtonText>True</SAnswerButtonText>
       </SAnswerButton>
-    </View>
+    </SAnswerButtonWrapperView>
   );
 };
 

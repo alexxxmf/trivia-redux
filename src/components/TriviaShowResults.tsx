@@ -2,6 +2,11 @@ import React from "react";
 import { View, Text } from "react-native";
 
 import { Result as Question } from "../service";
+import {
+  SAnswerResultText,
+  SQuestionText,
+  SResultWrapperView
+} from "./TriviaShowResults.style";
 
 interface IProps {
   questions: Question[];
@@ -15,12 +20,12 @@ const TriviaShowResults = ({ questions, answers }: IProps) => {
         const correctAnswerBoolean =
           correct_answer.toLowerCase() === "true" ? true : false;
         return (
-          <View key={question}>
-            <Text>{question}</Text>
-            <Text>
+          <SResultWrapperView key={question}>
+            <SQuestionText>{question}</SQuestionText>
+            <SAnswerResultText>
               {answers[index] === correctAnswerBoolean ? "Right" : "Wrong"}
-            </Text>
-          </View>
+            </SAnswerResultText>
+          </SResultWrapperView>
         );
       })}
     </View>

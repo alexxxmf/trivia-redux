@@ -1,34 +1,19 @@
 import React from "react";
-import { View, Text, TouchableHighlight } from "react-native";
-import styled from "styled-components/native";
+import { View } from "react-native";
 
-import { Metrics, Colors } from "../theme";
+import {
+  SAnswerButton,
+  SButtonWrapperView,
+  SCategoryText,
+  SQuestionText,
+  SButtonText
+} from "./TriviaQuestion.style";
 
 interface IProps {
   question: string;
   category: string;
   onQuestionAnswered: (answer: boolean) => void;
 }
-
-const SQuestionText = styled(Text)``;
-
-const SCategoryText = styled(Text)``;
-
-const SButtonWrapperView = styled(View)`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const SAnswerButton = styled(TouchableHighlight)`
-  height: 45px;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  margin: ${Metrics.margin.tripleBaseMargin}px;
-  border-radius: ${Metrics.buttonRadius.large}px;
-  background-color: ${Colors.white};
-`;
 
 const TriviaQuestion = ({ question, category, onQuestionAnswered }: IProps) => {
   return (
@@ -42,13 +27,13 @@ const TriviaQuestion = ({ question, category, onQuestionAnswered }: IProps) => {
           testID="FalseButton"
           onPress={() => onQuestionAnswered(false)}
         >
-          <Text>False</Text>
+          <SButtonText>False</SButtonText>
         </SAnswerButton>
         <SAnswerButton
           testID="TrueButton"
           onPress={() => onQuestionAnswered(true)}
         >
-          <Text>True</Text>
+          <SButtonText>True</SButtonText>
         </SAnswerButton>
       </SButtonWrapperView>
     </View>
