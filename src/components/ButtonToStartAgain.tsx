@@ -19,7 +19,7 @@ const ButtonToStartAgain = ({ wipeOutAnswers, navigation }: IProps) => {
   return (
     <SAnswerButtonWrapperView>
       <SAnswerButton testID="StartAgainButton" onPress={handlePress}>
-        <SAnswerButtonText>True</SAnswerButtonText>
+        <SAnswerButtonText>Start Again</SAnswerButtonText>
       </SAnswerButton>
     </SAnswerButtonWrapperView>
   );

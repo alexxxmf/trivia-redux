@@ -1,11 +1,18 @@
 import React from "react";
-import { View, Text } from "react-native";
 
 import { Result as Question } from "../service";
 import {
-  SAnswerResultText,
   SQuestionText,
-  SResultWrapperView
+  SResultWrapperView,
+  SOverallResultText,
+  SOverallResultWrapper,
+  SWrongAnswerText,
+  SRightAnswerText,
+  SMainWrapper,
+  SAllResultsWrapperView,
+  SOverallResultBox,
+  SQuestionWrapperView,
+  SAnswerRightOrWrongWrapperView
 } from "./TriviaShowResults.style";
 
 interface IProps {
@@ -13,22 +20,55 @@ interface IProps {
   answers: boolean[];
 }
 
+const computeOverallScore = (
+  questions: Question[],
+  answers: Boolean[]
+): string => {
+  let score = 0;
+
+  questions.forEach((question: Question, index: number) => {
+    const correctAnswer =
+      question.correct_answer.toLocaleLowerCase() === "true" ? true : false;
+    if (answers[index] === correctAnswer) {
+      score += 1;
+    }
+  });
+
+  return `${score}/${questions.length}`;
+};
+
 const TriviaShowResults = ({ questions, answers }: IProps) => {
   return (
-    <View>
-      {questions.map(({ question, correct_answer }, index) => {
-        const correctAnswerBoolean =
-          correct_answer.toLowerCase() === "true" ? true : false;
-        return (
-          <SResultWrapperView key={question}>
-            <SQuestionText>{question}</SQuestionText>
-            <SAnswerResultText>
-              {answers[index] === correctAnswerBoolean ? "Right" : "Wrong"}
-            </SAnswerResultText>
-          </SResultWrapperView>
-        );
-      })}
-    </View>
+    <SMainWrapper>
+      <SOverallResultWrapper>
+        <SOverallResultBox>
+          <SOverallResultText>
+            {computeOverallScore(questions, answers)}
+          </SOverallResultText>
+        </SOverallResultBox>
+      </SOverallResultWrapper>
+      <SAllResultsWrapperView>
+        {questions.map(({ question, correct_answer }, index) => {
+          const correctAnswerBoolean =
+            correct_answer.toLowerCase() === "true" ? true : false;
+          return (
+            <SResultWrapperView key={question}>
+              <SAnswerRightOrWrongWrapperView>
+                {answers[index] === correctAnswerBoolean ? (
+                  <SRightAnswerText>RIGHT</SRightAnswerText>
+                ) : (
+                  <SWrongAnswerText>WRONG</SWrongAnswerText>
+                )}
+              </SAnswerRightOrWrongWrapperView>
+
+              <SQuestionWrapperView>
+                <SQuestionText>{question}</SQuestionText>
+              </SQuestionWrapperView>
+            </SResultWrapperView>
+          );
+        })}
+      </SAllResultsWrapperView>
+    </SMainWrapper>
   );
 };
 

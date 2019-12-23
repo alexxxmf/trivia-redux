@@ -14,6 +14,10 @@ export const SAnswerButton = styled.TouchableHighlight`
 
 export const SAnswerButtonText = styled.Text`
   font-size: 16px;
+  color: ${Colors.blue};
 `;
 
-export const SAnswerButtonWrapperView = styled.View``;
+export const SAnswerButtonWrapperView = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
