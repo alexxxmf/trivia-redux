@@ -1,11 +1,18 @@
-import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import {
+  createStore,
+  applyMiddleware,
+  combineReducers,
+  compose,
+  Dispatch
+} from "redux";
 import thunk from "redux-thunk";
 import { createActionCreator, createReducer } from "deox";
-import { Result as Question } from "../service";
+import service, { Result as Question } from "../service";
+import { questionSetProcessor } from "../utils";
 
 import { normaliseArray } from "../utils";
 
-export const saveChecklists = createActionCreator(
+export const saveQuestions = createActionCreator(
   "SAVE_TRIVIA_QUESTIONS",
   resolve => (questions: Question[]) => resolve({ questions })
 );
@@ -17,6 +24,18 @@ export const saveAnswer = createActionCreator(
 
 export const wipeOutAnswers = createActionCreator("WIPE_OUT_ANSWERS");
 export const wipeOutQuestions = createActionCreator("WIPE_OUT_QUESTIONS");
+
+export const getAndSaveQuestions = () => async (dispatch: Dispatch) => {
+  try {
+    const response = await service.getTriviaQuestions();
+    const processedQuestions = questionSetProcessor(response.results);
+    if (processedQuestions) {
+      dispatch(saveQuestions(processedQuestions));
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 export interface IStateQuestions {
   [key: string]: Question;
@@ -36,8 +55,8 @@ export interface IRootState {
   answers: IStateAnswers;
 }
 
-const questions = createReducer({}, handleAction => [
-  handleAction(saveChecklists, (state, { payload }) => {
+export const questionsReducer = createReducer({}, handleAction => [
+  handleAction(saveQuestions, (state, { payload }) => {
     return { ...state, ...normaliseArray(payload.questions, "question") };
   }),
   handleAction(wipeOutQuestions, () => {
@@ -45,7 +64,7 @@ const questions = createReducer({}, handleAction => [
   })
 ]);
 
-const answers = createReducer(
+export const answersReducer = createReducer(
   { answersByIndex: {}, nextIndex: 0 },
   handleAction => [
     handleAction(saveAnswer, (state, { payload }) => {
@@ -69,24 +88,19 @@ const answers = createReducer(
 );
 
 const reducer = combineReducers({
-  questions,
-  answers
+  questions: questionsReducer,
+  answers: answersReducer
 });
 
-// TODO: create more selectors and test them
 export const selectQuestions = (state: IRootState): Question[] => {
   return Object.values(state.questions);
 };
 
-// TODO: create more selectors and test them
 export const selectAnswersArray = (state: IRootState): boolean[] => {
   return Object.keys(state.answers.answersByIndex)
     .sort()
     .map(key => state.answers.answersByIndex[parseInt(key)]);
 };
-
-// @ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducer, compose(applyMiddleware(thunk)));
 
