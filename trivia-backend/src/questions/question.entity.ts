@@ -6,6 +6,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { CreateQuestionDto } from './dto/create-question.dto';
 
 export enum Difficulty {
   EASY = 'EASY',
@@ -37,7 +38,6 @@ export class Question extends BaseEntity {
   )
   category: string;
 
-  // TODO: create a  method so it receives an string[] and then stringifies that array
   @Column()
   incorrectAnswers: string;
 
@@ -49,6 +49,18 @@ export class Question extends BaseEntity {
 
   @Column({ nullable: true })
   hint: string;
+
+  constructor({ incorrectAnswers }: CreateQuestionDto) {
+    super();
+
+    if (!!incorrectAnswers && incorrectAnswers instanceof Array) {
+      this.incorrectAnswers = JSON.stringify(incorrectAnswers);
+    }
+  }
+
+  deserializeIncorrectAnswers(): string[] {
+    return JSON.parse(this.incorrectAnswers);
+  }
 }
 
 @Entity()
