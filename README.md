@@ -1,11 +1,7 @@
-### TODO
+## Trivia
 
-Hash title for the question and then we index the questions based on that and so the answers. Could be a good way to stop using index in trivia results screen
+### Description
 
-We are still missing the navigation back into the main page when answers are wipped out.
+The following project consists of two subfolders. One for the frontend, done using React native so mobile focused. the other subfolder has a backend done using NestJS framework for NodeJS.
 
-Work on the visual aspect once all functionality is done
-
-Remove comments
-
-Add more file splitting, specially for store
+Both of FE and BE have being coded using Typescript.
