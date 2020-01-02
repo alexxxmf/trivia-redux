@@ -5,6 +5,7 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  Unique,
 } from 'typeorm';
 import { CreateQuestionDto } from './dto/create-question.dto';
 
@@ -31,10 +32,10 @@ export class Question extends BaseEntity {
   @Column()
   correctAnswer: string;
 
-  @OneToMany(
+  @ManyToOne(
     type => Category,
     category => category.question,
-    { eager: true },
+    { eager: false },
   )
   category: string;
 
@@ -50,7 +51,10 @@ export class Question extends BaseEntity {
   @Column({ nullable: true })
   hint: string;
 
-  constructor({ incorrectAnswers }: CreateQuestionDto) {
+  @Column()
+  categoryId: number;
+
+  constructor(incorrectAnswers: string[]) {
     super();
 
     if (!!incorrectAnswers && incorrectAnswers instanceof Array) {
@@ -64,6 +68,7 @@ export class Question extends BaseEntity {
 }
 
 @Entity()
+@Unique(['categorySlug'])
 export class Category extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   categoryId: string;
@@ -71,10 +76,13 @@ export class Category extends BaseEntity {
   @Column()
   category: string;
 
-  @ManyToOne(
+  @Column()
+  categorySlug: string;
+
+  @OneToMany(
     type => Question,
     question => question.category,
-    { eager: false },
+    { eager: true },
   )
-  question: string;
+  question: Question[];
 }
