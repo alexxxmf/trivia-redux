@@ -1,4 +1,14 @@
-import { Controller, Get, Inject, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Inject,
+  Post,
+  Body,
+  Patch,
+  Query,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { Question, Category } from './question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
@@ -17,9 +27,6 @@ export class QuestionsController {
   async createQuestion(
     @Body() createQuestionDto: CreateQuestionDto,
   ): Promise<Question> {
-    console.log('===============');
-    console.log(createQuestionDto);
-    console.log('===============');
     return this.questionsService.createQuestion(createQuestionDto);
   }
 
@@ -28,10 +35,28 @@ export class QuestionsController {
     return this.questionsService.getCategories();
   }
 
+  @Get('/categories/:id')
+  async getCategoryById(@Param('id') id: string): Promise<Category> {
+    return this.questionsService.getCategoryById(id);
+  }
+
   @Post('/categories')
   async createCategory(
     @Body() createCategoryDto: CreateCategoryDto,
   ): Promise<Category> {
     return this.questionsService.createCategory(createCategoryDto);
+  }
+
+  @Patch('/categories/:id')
+  async updateCategoryTitle(
+    @Param('id') id: string,
+    @Body('category') categoryTitle: string,
+  ): Promise<Category> {
+    return this.questionsService.updateCategory(id, categoryTitle);
+  }
+
+  @Delete('/categories/:id')
+  async deleteCategory(@Param('id') id: string): Promise<void> {
+    return await this.questionsService.deleteCategory(id);
   }
 }

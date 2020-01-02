@@ -24,7 +24,7 @@ export enum Type {
 @Entity()
 export class Question extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  questionId: string;
+  id: string;
 
   @Column()
   difficulty: Difficulty;
@@ -50,28 +50,13 @@ export class Question extends BaseEntity {
 
   @Column({ nullable: true })
   hint: string;
-
-  @Column()
-  categoryId: number;
-
-  constructor(incorrectAnswers: string[]) {
-    super();
-
-    if (!!incorrectAnswers && incorrectAnswers instanceof Array) {
-      this.incorrectAnswers = JSON.stringify(incorrectAnswers);
-    }
-  }
-
-  deserializeIncorrectAnswers(): string[] {
-    return JSON.parse(this.incorrectAnswers);
-  }
 }
 
 @Entity()
 @Unique(['categorySlug'])
 export class Category extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  categoryId: string;
+  id: string;
 
   @Column()
   category: string;
@@ -85,4 +70,14 @@ export class Category extends BaseEntity {
     { eager: true },
   )
   question: Question[];
+
+  save(): Promise<this> {
+    this.categorySlug = this.createCategorySlug(this.category);
+
+    return super.save();
+  }
+
+  private createCategorySlug(categoryName: string): string {
+    return categoryName.replace(/\s/g, '-').toLowerCase();
+  }
 }

@@ -20,22 +20,35 @@ export class QuestionRepository extends Repository<Question> {
       category,
       difficulty,
       hint,
+      type,
     } = createQuestionDto;
 
-    const questionInstance = new Question(incorrectAnswers);
+    const questionInstance = new Question();
 
     questionInstance.category = category;
     questionInstance.correctAnswer = correctAnswer;
+    questionInstance.incorrectAnswers = this.serializeIncorrectAnswers(
+      incorrectAnswers,
+    );
+    questionInstance.type = type;
     questionInstance.question = question;
     questionInstance.difficulty = difficulty;
     questionInstance.hint = hint;
 
     try {
-      await this.create();
+      await questionInstance.save();
       return questionInstance;
     } catch (error) {
       console.log(error);
     }
+  }
+
+  private serializeIncorrectAnswers(incorrectAnswers: string[]) {
+    return JSON.stringify(incorrectAnswers);
+  }
+
+  private deserializeIncorrectAnswers(serializedIncorrectAnswers): string {
+    return JSON.parse(serializedIncorrectAnswers);
   }
 }
 
@@ -52,7 +65,6 @@ export class CategoryRepository extends Repository<Category> {
 
     const { category } = createCategoryDto;
     categoryInstance.category = category;
-    categoryInstance.categorySlug = this.createCategorySlug(category);
 
     try {
       await categoryInstance.save();
@@ -64,9 +76,5 @@ export class CategoryRepository extends Repository<Category> {
         console.log(error);
       }
     }
-  }
-
-  private createCategorySlug(categoryName: string): string {
-    return categoryName.replace(/\s/g, '-').toLowerCase();
   }
 }
