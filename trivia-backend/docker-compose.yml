@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  backend-app:
+    environment:
+      - NEST_PORT=3001
+      - RDS_HOSTNAME=postgres
+      - RDS_PORT=5432
+      - RDS_USERNAME=postgres
+      - RDS_PASSWORD=''
+      - RDS_DB_NAME=postgres
+      - TYPEORM_SYNC=true
+    depends_on:
+      - postgres
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./
+    ports:
+      - '3001:3001'
+    volumes:
+      - /app/node_modules
+      - ./:/app
+  postgres:
+    image: 'postgres:latest'

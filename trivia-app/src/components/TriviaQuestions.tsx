@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { withNavigation, NavigationInjectedProps } from "react-navigation";
 
 import { Result as Question } from "../service";
-import TriviaQuestion from "../components/TriviaQuestion";
+import TriviaQuestion from "./TriviaQuestion";
 
 interface IProps extends NavigationInjectedProps {
   questions: Question[];

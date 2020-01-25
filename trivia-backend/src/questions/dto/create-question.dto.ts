@@ -9,3 +9,4 @@ export interface CreateQuestionDto {
   type: Type;
   hint?: string;
 }
+

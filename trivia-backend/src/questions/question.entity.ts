@@ -50,6 +50,10 @@ export class Question extends BaseEntity {
 
   @Column({ nullable: true })
   hint: string;
+
+  private serializeIncorrectAnswers(incorrectAnswers: string[]) {
+    return JSON.stringify(incorrectAnswers);
+  }
 }
 
 @Entity()
