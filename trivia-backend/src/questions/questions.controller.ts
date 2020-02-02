@@ -8,6 +8,8 @@ import {
   Query,
   Delete,
   Param,
+  UseInterceptors,
+  CacheInterceptor,
 } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { Question, Category } from './question.entity';
@@ -17,6 +19,7 @@ import { get } from 'https';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 
 @Controller('questions')
+@UseInterceptors(CacheInterceptor)
 export class QuestionsController {
   constructor(private questionsService: QuestionsService) {}
 

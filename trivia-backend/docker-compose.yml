@@ -12,6 +12,7 @@ services:
       - TYPEORM_SYNC=true
     depends_on:
       - postgres
+      - redis
     build:
       dockerfile: Dockerfile.dev
       context: ./
@@ -22,3 +23,5 @@ services:
       - ./:/app
   postgres:
     image: 'postgres:latest'
+  redis:
+    image: 'redis:latest'
